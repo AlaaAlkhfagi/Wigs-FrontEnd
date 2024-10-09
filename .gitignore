@@ -1,0 +1,62 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Next.js build output
+.next/
+out/
+
+# Build artifacts (if you're using TypeScript or Babel)
+dist/
+build/
+
+# Next.js cache
+.next/cache
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+
+# Editor directories and files
+.vscode/
+.idea/
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+node_repl_history
+
+# Coverage directory used by testing tools like Jest
+coverage/
+
+# Optional npm cache directory
+.npm/
+
+# Yarn specific files
+.yarn/cache
+.pnp.*
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# Temporary files and directories
+tmp/
+temp/
+
+# Misc
+*.tgz
