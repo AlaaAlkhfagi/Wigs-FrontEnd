@@ -1,7 +1,7 @@
-export const ARTICLE_PER_PAGE = 10;
+export const ARTICLE_PER_PAGE = process.env.NEXT_PUBLIC_ARTICLE_PER_PAGE || 10;
 
-const PRODUCTION_DOMAIN = "http://localhost:5000/api/v1";
-const DEVELOPMENT_DOMAIN = "http://localhost:5000/api/v1";
+const PRODUCTION_DOMAIN = process.env.NEXT_PUBLIC_PRODUCTION_DOMAIN;
+const DEVELOPMENT_DOMAIN = process.env.NEXT_PUBLIC_DEVELOPMENT_DOMAIN;
 
 export const DOMAIN =
   process.env.NODE_ENV === "production"
