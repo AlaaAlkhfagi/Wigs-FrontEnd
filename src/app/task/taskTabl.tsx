@@ -20,7 +20,6 @@ const { RangePicker } = DatePicker;
 
 
 
-
 const TaskPage = () => {
     const [tasks, setTasks] = useState<Task[]>([]);
     const [users, setUsers] = useState<{ uid: string; name: string }[]>([]);
@@ -218,57 +217,56 @@ const columns: ColumnsType<Task> = [
             }
             return <Tag color={color}>{status}</Tag>;
         },
-        width: '10%',
-    },
-    {
-        title: 'Due Date',
-        dataIndex: 'dueDate',
-        key: 'dueDate',
-        render: (dueDate) => {
-            return dueDate ? dueDate.format('YYYY-MM-DD') : 'Unknown Date';
-        },
-        width: '15%',
-    },
-    {
-        title: 'Days Remaining',
-        key: 'daysRemaining',
-        render: (record) => {
-            const today = moment(); // الحصول على تاريخ اليوم
-            const dueDate = moment(record.dueDate); // تحويل dueDate إلى كائن moment
-    
-            const diffDays = dueDate.diff(today, 'days'); // حساب الفرق بالأيام
-    
-            // إذا كان التاريخ قد مضى أو كان 0
-            if (diffDays <= 0) {
-                return (
-                    <span style={{ backgroundColor: 'red', color: 'white', padding: '0.5em', borderRadius: '4px' }}>
-                        0 day(s) remaining (Overdue)
+            width: '10%',
+            },
+            {
+                title: 'Due Date',
+                dataIndex: 'dueDate',
+                key: 'dueDate',
+                render: (dueDate) => {
+                    return dueDate && moment(dueDate).isValid()
+                        ? moment(dueDate).format('YYYY-MM-DD')
+                        : 'Unknown Date';
+                },
+                width: '15%',
+            },
+            {
+                title: 'Days Remaining',
+                key: 'daysRemaining',
+                render: (record) => {
+                    const today = moment(); // Get today's date
+                    const dueDate = moment(record.dueDate); // Convert dueDate to moment object
+            
+                    const diffDays = dueDate.diff(today, 'days'); // Calculate the difference in days
+            
+                    // If the date has passed or is 0
+                    if (diffDays <= 0) {
+                        return (
+                            <span style={{ backgroundColor: 'red', color: 'white', padding: '0.5em', borderRadius: '4px' }}>
+                                0 day(s) remaining (Overdue)
+                            </span>
+                        ); // Display with red highlight
+                    }
+            
+                    return <span>{`${diffDays} day(s) remaining`}</span>; // Display the remaining days
+                },
+                width: '15%',
+            },
+            {
+                title: 'Update Date',
+                dataIndex: 'updateDate',
+                key: 'updateDate',
+                sorter: (a, b) => (a.updateDate?._seconds || 0) - (b.updateDate?._seconds || 0),
+                render: (updateDate) => (
+                    <span>
+                        {updateDate 
+                            ? new Date(updateDate._seconds * 1000).toLocaleDateString() 
+                            : 'Unknown Date'}
                     </span>
-                ); // عرض بتضليل أحمر
-            }
-    
-            return <span>{`${diffDays} day(s) remaining`}</span>; // عرض عدد الأيام المتبقية
-        },
-        width: '15%',
-    },
-    
-    
-    
-    
-   
-    {
-        title: 'Update Date',
-        dataIndex: 'updateDate',
-        key: 'updateDate',
-        sorter: (a, b) => (a.updateDate?._seconds || 0) - (b.updateDate?._seconds || 0),
-        render: (updateDate) => (
-            <span>
-                {updateDate ? new Date(updateDate._seconds * 1000).toLocaleString() : 'Unknown Date'}
-            </span>
-        ),
-        width: '15%',
-    },
- 
+                ),
+                width: '15%',
+            },
+            
     {
         title: 'Actions',
         key: 'actions',

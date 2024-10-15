@@ -24,12 +24,13 @@ const CreateTaskForm = () => {
     const [doctors, setDoctors] = useState<{ id: string; name: string }[]>([]);
     const [users, setUsers] = useState<{ uid: string; name: string }[]>([]);
     const [areas, setAreas] = useState<{ value: string; label: string }[]>([]);
-    const [statusOptions] = useState([
+    
+    const statusOptions = [
         { value: 'In Progress', label: 'In Progress' },
         { value: 'Failed', label: 'Failed' },
         { value: 'Done', label: 'Done' },
         { value: 'Complete', label: 'Complete' }
-    ]);
+    ];
 
     const taskTitleOptions = [
         { value: 'Sales Radiesse', label: 'Sales Radiesse' },
@@ -133,6 +134,7 @@ const CreateTaskForm = () => {
             return;
         }
     
+        setLoading(true);
         setFormStatus('loading');
     
         try {
@@ -141,7 +143,7 @@ const CreateTaskForm = () => {
                 throw new Error("Token not found in localStorage");
             }
     
-            const response = await axios.post(`${DOMAIN}/tasks/createTask`, {
+            await axios.post(`${DOMAIN}/tasks/createTask`, {
                 TaskTitle: taskTitle,
                 employeeID: employeeID,
                 supervisorName: supervisorName,
@@ -249,18 +251,18 @@ const CreateTaskForm = () => {
                                 id="employeeID"
                                 options={userOptions}
                                 onChange={(selectedOption) => setEmployeeID(selectedOption?.value || "")}
-                                placeholder="Select Employee"
+                                placeholder="Select Employee Name"
                                 className="w-full mt-1"
                                 value={userOptions.find(option => option.value === employeeID) || null}
                             />
                         </div>
                         <div>
-                            <Label htmlFor="supervisorName">Supervisor Name</Label>
+                            <Label htmlFor="supervisorName">Doctor Name</Label>
                             <Select
                                 id="supervisorName"
                                 options={doctorOptions}
                                 onChange={(selectedOption) => setSupervisorName(selectedOption?.label || "")}
-                                placeholder="Select Supervisor"
+                                placeholder="Select doctor Name"
                                 className="w-full mt-1"
                                 value={doctorOptions.find(option => option.label === supervisorName) || null}
                             />
@@ -294,20 +296,16 @@ const CreateTaskForm = () => {
                                 type="date"
                                 value={dueDate}
                                 onChange={(e) => setDueDate(e.target.value)}
-                                placeholder="Select Due Date"
                                 required
                             />
                         </div>
-                        <div className="flex justify-end">
+                        <CardFooter>
                             <Button type="submit" disabled={loading}>
-                                {loading ? <ButtonSpinner /> : "Create Task"}
+                                {loading ? <ButtonSpinner /> : 'Create Task'}
                             </Button>
-                        </div>
+                        </CardFooter>
                     </form>
                 </CardContent>
-                <CardFooter>
-                    <p className="text-gray-500 text-sm">Fill all required fields to create a task.</p>
-                </CardFooter>
             </Card>
         )
     );

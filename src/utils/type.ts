@@ -26,24 +26,22 @@ export interface Task {
 }
 
 export interface Doctor {
-  id: string;
-  birthday: string;
-  area: string;
-  specialty: string;
-  wife: string;
-  child1: string;
-  child2: string;
-  child3: string;
-  university1: string;
-  university2: string;
-  photoUrl: string | null;
-  closeFriend1: string;
-  closeFriend2: string;
-  phoneNumber: string;
-  email: string;
-  name: string;
+  id: string; // معرف الدكتور
+  name: string; // اسم الدكتور
+  birthday: string; // تاريخ الميلاد
+  area: string; // المنطقة
+  specialty: string; // التخصص
+  phoneNumber: string; // رقم الهاتف
+  email?: string; // البريد الإلكتروني (اختياري)
+  child1?: string; // الطفل الأول (اختياري)
+  child2?: string; // الطفل الثاني (اختياري)
+  child3?: string; // الطفل الثالث (اختياري)
+  closeFriend1?: string; // صديق مقرب 1 (اختياري)
+  closeFriend2?: string; // صديق مقرب 2 (اختياري)
+  university1?: string; // الجامعة 1 (اختياري)
+  university2?: string; // الجامعة 2 (اختياري)
+  wife?: string; // الزوجة (اختياري)
 }
-
 // src/utils/type.ts
 
 export interface User {

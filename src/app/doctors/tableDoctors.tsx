@@ -19,6 +19,14 @@ import UploadPage from './upload';
 
 const { Option } = Select;
 
+// Assuming this is in UpdateDoctorPage.tsx or a types file
+export interface UpdateDoctorPageProps {
+    open: boolean;
+    doctor: Doctor | null;
+    onCancel: () => void;
+    onDoctorUpdated: (updatedDoctor: Doctor) => void;
+  }
+
 const DoctorsPage = () => {
     const [doctors, setDoctors] = useState<Doctor[]>([]);
     const [loading, setLoading] = useState(false);
@@ -309,7 +317,7 @@ const DoctorsPage = () => {
             </Form>
             <Table columns={newColumns} dataSource={filteredDoctors} rowKey="id" />
             {/* <UpdateDoctorModal
-    open={modalVisible}  // استبدل visible بـ open
+    visible={modalVisible}  // استبدل visible بـ open
     doctor={selectedDoctor}
     onCancel={handleModalCancel}
     onDoctorUpdated={handleDoctorUpdated}
